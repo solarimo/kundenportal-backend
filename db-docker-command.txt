@@ -1,0 +1,2 @@
+docker run -d -p 5433:5432 -e POSTGRES_PASSWORD=password -e POSTGRES_USER=solarimo -e POSTGRES_DB=mieter --name database postgres
+

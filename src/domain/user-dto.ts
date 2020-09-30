@@ -20,15 +20,4 @@ export class AddressDto {
   @Expose()
   stadt: string;
 
-  constructor(
-    strasse: string,
-    hausnummer: string,
-    postleitzahl: string,
-    stadt: string
-  ) {
-    this.strasse = strasse;
-    this.hausnummer = hausnummer;
-    this.postleitzahl = postleitzahl;
-    this.stadt = stadt;
-  }
 }
