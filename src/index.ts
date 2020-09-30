@@ -1,4 +1,4 @@
-import { createConnection, getRepository } from 'typeorm';
+import { createConnection } from 'typeorm';
 import { app } from './app';
 import { Address } from './entity/address';
 import { Hausnummer } from './entity/hausnummer';

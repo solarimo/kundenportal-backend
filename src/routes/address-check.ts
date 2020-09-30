@@ -2,7 +2,6 @@ import { Router, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import { AddressDto } from '../domain/user-dto';
 import { Address } from '../entity/address';
-import { Hausnummer } from '../entity/hausnummer';
 import { validateRequest } from '../middleware/validate-request';
 
 const router = Router();
@@ -17,8 +16,6 @@ router.post(
   ) => {
     const dto: AddressDto = res.locals.input; 
 
-
-    // TODO check against Database entries
     const address: Address | undefined = await getRepository(Address).findOne({ where: {
       strasse: dto.strasse,
       stadt: dto.stadt,

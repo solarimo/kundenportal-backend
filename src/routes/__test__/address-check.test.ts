@@ -1,20 +1,56 @@
 import request from 'supertest';
 import { app } from '../../app';
 
-it('will receive a valid address', async () => {
+it('will receive a valid address and respond with valid: true', async () => {
+
+
   const response = await request(app)
     .post('/register/validate-address')
     .send({  
       strasse: 'Musterstrasse',
       hausnummer: '15A',
-      postleitzahl: 12345,
+      postleitzahl: '12345',
       stadt: 'Musterstadt'
     })
-    console.log(response.text);
-    
-   expect(200);
-   
-   
+    .expect(200)
 
+    const data = JSON.parse(response.text);
+    expect(data.valid).toEqual(true);
+   
   
-})
+});
+
+it('will return errors object if the body fails vaildaton', async () => {
+
+
+  const response = await request(app)
+    .post('/register/validate-address')
+    .send({  
+      strasse: 1,
+      hausnummer: '15A',
+      // invalid plz
+      postleitzahl: '123',
+      stadt: 'Musterstadt'
+    })
+    expect(400)
+    
+});
+
+it('will receive a invalid address and respond with valid: false', async () => {
+
+
+  const response = await request(app)
+    .post('/register/validate-address')
+    .send({  
+      strasse: 'Musterstras',
+      hausnummer: '15A',
+      postleitzahl: '12345',
+      stadt: 'Musterstadt'
+    })
+    .expect(200)
+
+    const data = JSON.parse(response.text);
+    expect(data.valid).toEqual(false);
+   
+  
+});
