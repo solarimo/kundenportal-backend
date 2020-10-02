@@ -38,7 +38,7 @@ router.post(
       valid: valid
     }
 
-    res.status(200).send(JSON.stringify(body));
+    res.status(200).send(body);
   }
 );
 

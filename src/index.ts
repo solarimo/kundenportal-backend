@@ -3,7 +3,6 @@ import { app } from './app';
 import { Address } from './entity/address';
 import { Hausnummer } from './entity/hausnummer';
 import 'reflect-metadata';
-import { initDb } from './bootstrap/initDB';
 
 
 const start = async () => {
@@ -21,8 +20,6 @@ const start = async () => {
       synchronize: true,
       entities: [Address, Hausnummer]
     });
- 
-    await initDb();
     
   } catch (error) {
     console.error(error);

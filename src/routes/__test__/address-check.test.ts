@@ -13,9 +13,9 @@ it('will receive a valid address and respond with valid: true', async () => {
       stadt: 'Musterstadt'
     })
     .expect(200)
-
-    const data = JSON.parse(response.text);
-    expect(data.valid).toEqual(true);
+    
+    const { body } = response;
+    expect(body.valid).toEqual(true);
    
   
 });
