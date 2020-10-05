@@ -3,6 +3,7 @@ import { app } from './app';
 import { Address } from './entity/address';
 import { Hausnummer } from './entity/hausnummer';
 import 'reflect-metadata';
+import { ProjectPrice } from './entity/project-price';
 
 
 const start = async () => {
@@ -18,8 +19,10 @@ const start = async () => {
       password: 'password',
       database: 'mieter',
       synchronize: true,
-      entities: [Address, Hausnummer]
+      entities: [Address, Hausnummer, ProjectPrice]
     });
+    console.log('Connected to Database');
+    
     
   } catch (error) {
     console.error(error);

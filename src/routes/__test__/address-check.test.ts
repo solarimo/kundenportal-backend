@@ -1,3 +1,4 @@
+import { body } from 'express-validator';
 import request from 'supertest';
 import { app } from '../../app';
 
@@ -15,7 +16,7 @@ it('will receive a valid address and respond with valid: true', async () => {
     .expect(200)
     
     const { body } = response;
-    expect(body.valid).toEqual(true);
+    expect(body.addressId).not.toBeNull();
    
   
 });
@@ -49,8 +50,8 @@ it('will receive a invalid address and respond with valid: false', async () => {
     })
     .expect(200)
 
-    const data = JSON.parse(response.text);
-    expect(data.valid).toEqual(false);
+    const { body: data } = response;
+    expect(data.addressId).toEqual(null);
    
   
 });

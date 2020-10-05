@@ -24,18 +24,16 @@ router.post(
       relations: ["hausnummern"]
     });
 
-    let valid = false;
+
+    const body: { addressId: string | null } = { addressId: null };
 
     if (address) {
       address.hausnummern.forEach(entity => {
         if (entity.nummer === dto.hausnummer) {
-          valid = true;
+          body.addressId = address.id;
         }
-      })
-    }
-
-    const body = {
-      valid: valid
+      });
+      
     }
 
     res.status(200).send(body);

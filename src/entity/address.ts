@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Hausnummer } from "./hausnummer";
+import { ProjectPrice } from "./project-price";
 
-@Entity({ name: 'addresses' })
+@Entity()
 export class Address {
 
   @PrimaryGeneratedColumn('uuid')
@@ -19,5 +20,9 @@ export class Address {
   @ManyToMany(type => Hausnummer, { cascade: true })
   @JoinTable()
   hausnummern: Hausnummer[];
+
+  @OneToOne(type => ProjectPrice)
+  @JoinColumn()
+  projectPrice: ProjectPrice;
 
 }

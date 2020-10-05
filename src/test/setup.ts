@@ -1,6 +1,7 @@
 import { Connection, createConnection, getRepository } from "typeorm";
 import { Address } from "../entity/address";
 import { Hausnummer } from "../entity/hausnummer";
+import { ProjectPrice } from "../entity/project-price";
 
 let con: Connection;
 
@@ -13,7 +14,7 @@ beforeAll(async () => {
     password: 'password',
     database: 'mieter',
     synchronize: true,
-    entities: [Address, Hausnummer]
+    entities: [Address, Hausnummer, ProjectPrice]
   });
 
   await initDb();
@@ -30,11 +31,19 @@ const initDb = async () => {
   hausnummer2.nummer = '11';
   await getRepository(Hausnummer).save(hausnummer2);
 
+  const projectPrice = new ProjectPrice();
+  projectPrice.grundpreis = 120.34;
+  projectPrice.arbeitspreis = 29.88;
+  projectPrice.grundpreisGv = 130.23;
+  projectPrice.arbeitspreisGv = 31.78;
+  await getRepository(ProjectPrice).save(projectPrice);
+
   const addr = new Address();
   addr.strasse = 'Musterstraße';
   addr.postleitzahl = '12345';
   addr.stadt = 'Musterstadt';
   addr.hausnummern = [hausnummer, hausnummer2];
+  addr.projectPrice = projectPrice;
 
   await getRepository(Address).save(addr);
 

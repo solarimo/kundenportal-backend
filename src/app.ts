@@ -5,6 +5,7 @@ import 'express-async-errors';
 import { addressCheckRouter } from './routes/address-check';
 import { NotFoundError } from './errors/not-found-error';
 import { errorHandler } from './middleware/error-handler';
+import { calculateRouter } from './routes/calculate';
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(json());
 
 // routers
 app.use(addressCheckRouter);
+app.use(calculateRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();
