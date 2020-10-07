@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
+import { API_PREFIX } from '../app';
 import { AddressDto } from '../domain/user-dto';
 import { Address } from '../entity/address';
 import { validateRequest } from '../middleware/validate-request';
@@ -9,7 +10,7 @@ const router = Router();
 
 
 router.post(
-  '/register/validate-address',
+  `${API_PREFIX}/register/validate-address`,
   validateRequest<AddressDto>(AddressDto),
   async (
     req: Request, res: Response

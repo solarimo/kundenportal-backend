@@ -1,5 +1,6 @@
 import { Router, Response, Request } from 'express';
 import { getRepository } from 'typeorm';
+import { API_PREFIX } from '../app';
 import { CalculateRequest } from '../domain/calculate-request';
 import { CalculationAngebotDto } from '../domain/calculation-angebot';
 import { Address } from '../entity/address';
@@ -10,7 +11,7 @@ import { calcualteErspparnisC02, calculateByStromverbrauch, calculateErsparnisYe
 const router = Router();
 
 router.post(
-  '/register/calculate',
+  `${API_PREFIX}/register/calculate`,
   validateRequest<CalculateRequest>(CalculateRequest),
   async (
     req: Request,

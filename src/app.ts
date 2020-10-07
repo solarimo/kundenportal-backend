@@ -7,6 +7,7 @@ import { NotFoundError } from './errors/not-found-error';
 import { errorHandler } from './middleware/error-handler';
 import { calculateRouter } from './routes/calculate';
 
+export const API_PREFIX = '/api/v1';
 const app = express();
 
 // middleware

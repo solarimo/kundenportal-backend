@@ -13,7 +13,7 @@ const start = async () => {
     //connect to mysql
     const con = await createConnection({
       type: 'mysql',
-      host: 'localhost',
+      host: process.env.DB_DOMAIN || 'localhost',
       port: 3306,
       username: 'root',
       password: 'password',
