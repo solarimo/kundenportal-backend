@@ -2,7 +2,6 @@ import request from 'supertest';
 import { app } from '../../app';
 import { v4 as randomUUID } from 'uuid';
 import { API_PREFIX } from '../../utils/constants';
-import { Anrede, Titel } from '../../domain/user';
 
 const getValidUserJson = () => {
   return `{
@@ -27,7 +26,7 @@ const getValidUserDto = () => {
     geburtsdatum: '20.01.1980',
     telefonnummer: '0152489430590',
     email: 'max.muster@gmail.com',
-    zaehlerdaten: getValidAnbieterwechsel()
+    zaehlerdaten: {}
   }
 }
 

@@ -1,5 +1,7 @@
-import { Type } from "class-transformer";
-import { Equals, IsBoolean, IsDate, IsDefined, IsEmail, IsEnum, IsInstance, IsUUID, Length, Matches, ValidateNested } from "class-validator";
+import { Expose, Type } from "class-transformer";
+import { IsDefined, IsEmail, IsEnum, IsNotEmptyObject, IsUUID, Length, Matches, ValidateNested } from "class-validator";
+import { IsInstanceOf } from '../utils/validators';
+import { Anbieterwechsel, Neueinzug, ZaehlerDaten } from "./zaehlerdaten";
 
 export enum Anrede {
   FRAU = 'FRAU', HERR = 'HERR', DIVERS = 'DIVERS'
@@ -9,97 +11,53 @@ export enum Titel {
   DR = 'DR', PROF = 'PROF', PROF_DR = 'PROF_DR'
 }
 
-export enum Reason {
-  ANBIETERWECHSEL = 'ANBIETERWECHSEL',
-  NEUEINZUG = 'NEUEINZUG'
-}
-
-
-export abstract class ZaehlerDaten {
-  abstract __type: 'NEUEINZUG' | 'ANBIETERWECHSEL';
-  abstract zaehlernummer: string;
-  abstract reason: Reason;
-}
-
-export class Anbieterwechsel extends ZaehlerDaten {
-
-  @IsDefined()
-  @Equals('ANBIETERWECHSEL')
-  __type: 'ANBIETERWECHSEL';
-
-  @IsDefined()
-  @IsEnum(Reason)
-  reason: Reason;
-
-  @IsDefined()
-  zaehlernummer: string;
-
-  @IsDefined()
-  bisherigerAnbieter: string;
-
-  @IsDefined()
-  @IsBoolean()
-  bereitsGekuendigt: boolean;
-
-  @IsDate()
-  @IsDefined()
-  @Type(() => Date)
-  vertragslaufzeitBis: Date;
-}
-
-export class Neueinzug extends ZaehlerDaten {
-
-  @Equals('NEUEINZUG')
-  @IsDefined()
-  __type: 'NEUEINZUG';
-
-  @IsDefined()
-  @IsEnum(Reason)
-  reason: Reason;
-
-  zaehlernummer: string;
-
-  @Type(() => Date)
-  einzugsDatum: Date;
-
-}
-
 export class UserDto {
 
+  @Expose()
   @IsDefined()
   @IsUUID()
   addressId: string;
 
+  @Expose()
   @IsDefined()
   @IsEnum(Anrede)
   anrede: Anrede;
 
+  @Expose()
   @IsEnum(Titel)
   titel: Titel;
 
+  @Expose()
   @IsDefined()
   vorname: string;
 
+  @Expose()
   @IsDefined()
   nachname: string;
 
+  @Expose()
   @IsDefined()
   @Matches(/[0-9]{2}\.[0-9]{2}\.[0-9]{4}/)
   geburtsdatum: string
 
+  @Expose()
   @IsDefined()
   @Length(6, 20)
   telefonnummer: string;
 
+  @Expose()
   @IsDefined()
   @IsEmail()
   email: string;
 
+  @Expose()
   @IsDefined()
+  // @IsInstanceOf(Anbieterwechsel, Neueinzug)
+  @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => ZaehlerDaten, {
     discriminator: {
-      property: '__type',
+      property: 'type',
       subTypes: [
         {value: Anbieterwechsel, name: 'ANBIETERWECHSEL'},
         {value: Neueinzug, name: 'NEUEINZUG'}

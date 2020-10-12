@@ -10,11 +10,18 @@ export const validateRequest = <T>(dto: ClassType<T>) => {
     res: Response,
     next: NextFunction
   ) {
-    const object: T = plainToClass(dto, req.body);
-    let errors: ValidationError[] =  await validate(object, { skipMissingProperties: true });
-
+    const object: T = plainToClass(dto, req.body, { excludeExtraneousValues: true });   
+    console.log(object);
+     
+    let errors: ValidationError[] =  await validate(object);
+    
     
     if (errors.length > 0) {
+      errors.forEach((err) => {
+        if(err.children.length) {
+          err.children.forEach((nestedErr) => errors.push(nestedErr))
+        }
+      })
       throw new RequestValidationError(errors);
     }
     
