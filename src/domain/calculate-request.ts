@@ -1,7 +1,7 @@
 import { IsDefined, IsNumber, IsUUID } from "class-validator";
 
 
-export class CalculateRequest {
+export class CalculateRequestDto {
 
   @IsDefined()
   @IsNumber()

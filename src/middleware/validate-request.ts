@@ -12,7 +12,8 @@ export const validateRequest = <T>(dto: ClassType<T>) => {
   ) {
     const object: T = plainToClass(dto, req.body);
     let errors: ValidationError[] =  await validate(object, { skipMissingProperties: true });
-   
+
+    
     if (errors.length > 0) {
       throw new RequestValidationError(errors);
     }

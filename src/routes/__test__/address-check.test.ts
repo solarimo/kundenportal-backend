@@ -1,11 +1,12 @@
 import request from 'supertest';
 import { app } from '../../app';
+import { API_PREFIX } from '../../utils/constants';
 
 it('will receive a valid address and respond with valid: true', async () => {
 
 
   const response = await request(app)
-    .post('/register/validate-address')
+    .post(`${API_PREFIX}/register/validate-address`)
     .send({  
       strasse: 'Musterstrasse',
       hausnummer: '15A',
@@ -24,7 +25,7 @@ it('will return errors object if the body fails vaildaton', async () => {
 
 
   const response = await request(app)
-    .post('/register/validate-address')
+    .post(`${API_PREFIX}/register/validate-address`)
     .send({  
       strasse: 1,
       hausnummer: '15A',
@@ -40,7 +41,7 @@ it('will receive a invalid address and respond with valid: false', async () => {
 
 
   const response = await request(app)
-    .post('/register/validate-address')
+    .post(`${API_PREFIX}/register/validate-address`)
     .send({  
       strasse: 'Musterstras',
       hausnummer: '15A',

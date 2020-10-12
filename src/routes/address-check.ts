@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import { API_PREFIX } from '../app';
-import { AddressDto } from '../domain/user-dto';
+import { API_PREFIX } from '../utils/constants';
+import { AddressDto } from '../domain/address';
 import { Address } from '../entity/address';
 import { validateRequest } from '../middleware/validate-request';
 

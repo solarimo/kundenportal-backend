@@ -1,24 +1,24 @@
 import { Router, Response, Request } from 'express';
 import { getRepository } from 'typeorm';
-import { API_PREFIX } from '../app';
-import { CalculateRequest } from '../domain/calculate-request';
+import { CalculateRequestDto } from '../domain/calculate-request';
 import { CalculationAngebotDto } from '../domain/calculation-angebot';
 import { Address } from '../entity/address';
 import { NotFoundError } from '../errors/not-found-error';
 import { validateRequest } from '../middleware/validate-request';
 import { calcualteErspparnisC02, calculateByStromverbrauch, calculateErsparnisYear } from '../services/calculate';
+import { API_PREFIX } from '../utils/constants';
 
 const router = Router();
 
 router.post(
   `${API_PREFIX}/register/calculate`,
-  validateRequest<CalculateRequest>(CalculateRequest),
+  validateRequest<CalculateRequestDto>(CalculateRequestDto),
   async (
     req: Request,
     res: Response
   ) => {
 
-    const { stromverbrauch, addressId }: CalculateRequest = res.locals.input;
+    const { stromverbrauch, addressId }: CalculateRequestDto = res.locals.input;
 
     const addr: Address | undefined = await getRepository(Address).findOne(addressId, { relations: ['projectPrice'] });
 
