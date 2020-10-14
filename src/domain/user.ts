@@ -1,6 +1,5 @@
-import { Expose, Type } from "class-transformer";
-import { IsDefined, IsEmail, IsEnum, IsNotEmptyObject, IsUUID, Length, Matches, ValidateNested } from "class-validator";
-import { IsInstanceOf } from '../utils/validators';
+import { Expose, Transform, Type } from "class-transformer";
+import { IsDefined, IsEmail, IsEnum, IsNotEmptyObject, IsString, IsUUID, Length, Matches, ValidateNested } from "class-validator";
 import { Anbieterwechsel, Neueinzug, ZaehlerDaten } from "./zaehlerdaten";
 
 export enum Anrede {
@@ -52,7 +51,32 @@ export class UserDto {
 
   @Expose()
   @IsDefined()
-  // @IsInstanceOf(Anbieterwechsel, Neueinzug)
+  @Length(5, 40)
+  @Transform((password?: string) => password?.trim(), { toClassOnly: true })
+  @IsString()
+  password: string;
+
+  @Expose()
+  @IsDefined()
+  @Length(22, 22)
+  @IsString()
+  @Transform((iban?: string) => iban?.trim())
+  iban: string;
+
+  @Expose()
+  @IsDefined()
+  @IsString()
+  kontoinhaber: string;
+
+  @Expose()
+  rabattCode: string;
+
+  @Expose()
+  empfehlung: string;
+
+
+  @Expose()
+  @IsDefined()
   @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => ZaehlerDaten, {

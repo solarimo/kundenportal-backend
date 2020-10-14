@@ -11,8 +11,7 @@ export const validateRequest = <T>(dto: ClassType<T>) => {
     next: NextFunction
   ) {
     const object: T = plainToClass(dto, req.body, { excludeExtraneousValues: true });   
-    console.log(object);
-     
+
     let errors: ValidationError[] =  await validate(object);
     
     
