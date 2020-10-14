@@ -1,5 +1,5 @@
 export class CalculationAngebotDto {
-
+  
   stromverbrauch: number;
   monatlAbschlag: number;
   ersparnisPerYear: number;

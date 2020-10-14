@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { IsDefined, IsNumber, Matches } from 'class-validator';
+import { IsDefined, Matches } from 'class-validator';
 
 export class AddressDto {
 

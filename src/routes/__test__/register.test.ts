@@ -3,19 +3,6 @@ import { app } from '../../app';
 import { v4 as randomUUID } from 'uuid';
 import { API_PREFIX } from '../../utils/constants';
 
-const getValidUserJson = () => {
-  return `{
-    "addressId": "${randomUUID()}",
-    "anrede": "HERR",
-    "titel": "DR",
-    "vorname": "Max",
-    "nachname": "Mustermann",
-    "geburtsdatum": "20.01.1980",
-    "telefonnummer": "0152489430590",
-    "email": "max.muster@gmail.com"
-  }`
-}
-
 const getValidUserDto = () => {
   return {
     addressId: randomUUID(),
@@ -26,14 +13,17 @@ const getValidUserDto = () => {
     geburtsdatum: '20.01.1980',
     telefonnummer: '0152489430590',
     email: 'max.muster@gmail.com',
-    zaehlerdaten: {}
+    password: 'randomPassword',
+    iban: 'DE11111111111111111111',
+    rabattCode: '12234',
+    empfehlung: 'Freund',
+    zaehlerdaten: getValidAnbieterwechsel(),
   }
 }
 
 const getValidAnbieterwechsel = () => {
   return {
-    __type: 'ANBIETERWECHSEL',
-    reason: 'ANBIETERWECHSEL',
+    type: 'ANBIETERWECHSEL',
     zaehlernummer: 'sdfhJHK349jHJ',
     bisherigerAnbieter: 'eon',
     bereitsGekuendigt: false,
@@ -41,12 +31,12 @@ const getValidAnbieterwechsel = () => {
   }
 }
 
-it('will not throw errors', async () => {
+it('will not throw errors when Json is valid', async () => {
   
   const response = await request(app)
     .post(`${API_PREFIX}/register`)
     .send(getValidUserDto())
+    .expect(200)
 
-  console.log(response.body);
   
 });

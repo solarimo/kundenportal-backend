@@ -4,6 +4,7 @@ import { app } from '../../app';
 import { Address } from '../../entity/address';
 import { v4 as randomUUID } from 'uuid';
 import { API_PREFIX } from '../../utils/constants';
+import { CalculationAngebotDto } from '../../domain/calculation-angebot';
 
 
 it('will return 400 when request body is in valid', async () => {
@@ -32,13 +33,16 @@ it('will return 200 when address exists', async () => {
   const addr: Address | undefined = await getRepository(Address).findOne();
   
 
-  await request(app)
+  const { body } = await request(app)
     .post(`${API_PREFIX}/register/calculate`)
     .send({
       addressId: addr!.id,
       stromverbrauch: 4000
     })
     .expect(200)
+
+  expect((body as CalculationAngebotDto).stromverbrauch).toEqual(4000);
+  
 });
 
 it('will return 404 when address does not exist', async () => {
