@@ -1,5 +1,5 @@
 import { Expose, Type } from "class-transformer";
-import { Equals, IsBoolean, IsDate, IsDefined } from "class-validator";
+import { Equals, IsBoolean, IsDate, IsDefined, IsString } from "class-validator";
 
 export abstract class ZaehlerDaten {
   abstract type: 'NEUEINZUG' | 'ANBIETERWECHSEL';
@@ -19,6 +19,7 @@ export class Anbieterwechsel extends ZaehlerDaten {
 
   @Expose()
   @IsDefined()
+  @IsString()
   bisherigerAnbieter: string;
 
   @Expose()

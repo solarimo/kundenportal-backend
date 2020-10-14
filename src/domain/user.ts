@@ -66,7 +66,7 @@ export class UserDto {
   @Expose()
   @IsDefined()
   @IsString()
-  kontoinhaber: string;
+  kontoInhaber: string;
 
   @Expose()
   rabattCode: string;
