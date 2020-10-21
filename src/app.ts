@@ -8,6 +8,7 @@ import { errorHandler } from './middleware/error-handler';
 import { calculateRouter } from './routes/calculate';
 import { helloRouter } from './routes/hello';
 import { registerRouter } from './routes/register';
+import { ibanCheckRouter } from './routes/iban-check';
 
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(addressCheckRouter);
 app.use(calculateRouter);
 app.use(helloRouter);
 app.use(registerRouter);
+app.use(ibanCheckRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();
