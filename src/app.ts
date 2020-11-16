@@ -7,8 +7,8 @@ import { NotFoundError } from './errors/not-found-error';
 import { errorHandler } from './middleware/error-handler';
 import { calculateRouter } from './routes/calculate';
 import { helloRouter } from './routes/hello';
-import { registerRouter } from './routes/register';
 import { ibanCheckRouter } from './routes/iban-check';
+import { signupRouter } from './routes/signup';
 
 
 const app = express();
@@ -22,8 +22,8 @@ app.use(json());
 app.use(addressCheckRouter);
 app.use(calculateRouter);
 app.use(helloRouter);
-app.use(registerRouter);
 app.use(ibanCheckRouter);
+app.use(signupRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();

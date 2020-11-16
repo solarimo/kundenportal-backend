@@ -2,11 +2,21 @@ import { createConnection } from 'typeorm';
 import { app } from './app';
 import { Address } from './entity/address';
 import { Hausnummer } from './entity/hausnummer';
-import 'reflect-metadata';
 import { ProjectPrice } from './entity/project-price';
+import { config } from 'dotenv';
+import { User } from './entity/user';
 
 
 const start = async () => {
+  config();
+
+  if (!process.env.ACCESS_TOKEN_SECRET) {
+    throw new Error('ACCESS_TOKEN_SECRET must be defined');
+  }
+
+  if(!process.env.REFRESH_TOKEN_SECRET) {
+    throw new Error('REFRESH_TOKEN_SECRET must be defined')
+  }
 
   try {
 
@@ -19,13 +29,13 @@ const start = async () => {
       password: 'password',
       database: 'mieter',
       synchronize: true,
-      entities: [Address, Hausnummer, ProjectPrice]
+      entities: [Address, Hausnummer, ProjectPrice, User]
     });
     console.log('Connected to Database');
     
     
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 
 

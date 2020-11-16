@@ -1,6 +1,6 @@
-import request, { SuperTest } from 'supertest';
+import request from 'supertest';
 import { app } from '../../app';
-import { IbanResponseDto, OpenIbanResponseDto } from '../../domain/iban';
+import { IbanResponseDto } from '../../domain/iban';
 import { API_PREFIX } from '../../utils/constants';
 
 const testIBAN = 'DE89370400440532013000';

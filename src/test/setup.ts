@@ -1,23 +1,36 @@
-import { Connection, createConnection, getRepository } from "typeorm";
+import { Connection, createConnection, getConnection, getRepository } from "typeorm";
 import { Address } from "../entity/address";
 import { Hausnummer } from "../entity/hausnummer";
 import { ProjectPrice } from "../entity/project-price";
+import { User } from "../entity/user";
+import { config } from 'dotenv';
 
-let con: Connection;
+const entities = [Address, Hausnummer, ProjectPrice, User];
+
 
 beforeAll(async () => {
-  con = await createConnection({
+  
+  config();
+
+  await createConnection({
     type: 'mysql',
     host: 'localhost',
     port: 3306,
     username: 'root',
     password: 'password',
-    database: 'mieter',
+    database: 'mieter-test',
+    entities,
     synchronize: true,
-    entities: [Address, Hausnummer, ProjectPrice]
-  });
+    dropSchema: true
+  }).catch(e => console.log(e)
+  )  
 
   await initDb();
+});
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  jest.restoreAllMocks();
 });
 
 
@@ -49,6 +62,7 @@ const initDb = async () => {
 
 }
 
-afterAll(() => {
-  con.close();
-})
+afterAll(async () => {
+  await getConnection().close();
+});
+
