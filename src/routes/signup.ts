@@ -2,12 +2,12 @@ import { Router, Request, Response } from 'express';
 import { UserDto } from '../domain/user';
 import { User } from '../entity/user';
 import { validateRequest } from '../middleware/validate-request';
-import { ACCESS_TOKEN_EXPIRY, API_PREFIX, REFRESH_TOKEN_EXPIRY } from '../utils/constants';
+import { API_PREFIX } from '../utils/constants';
 import bcrypt from 'bcrypt';
 import { getRepository } from 'typeorm';
 import { InternalServerError } from '../errors/internal-server-error';
-import jwt from 'jsonwebtoken';
 import { BadRequestError } from '../errors/bad-request-error';
+import { generateAccessToken, generateRefreshToken } from '../services/token';
 
 
 const router = Router();
@@ -40,9 +40,8 @@ router.post(
 
   // generate access and refresh token
   const payload = { userId: savedUser.id };
-  const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET!, { expiresIn: ACCESS_TOKEN_EXPIRY });
-  const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET!, { expiresIn: REFRESH_TOKEN_EXPIRY });
-
+  const accessToken = generateAccessToken(savedUser.id);
+  const refreshToken = await generateRefreshToken(savedUser);
   // return tokens
   res.status(201).send({ accessToken, refreshToken });
 });

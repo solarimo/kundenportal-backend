@@ -5,6 +5,7 @@ import { Hausnummer } from './entity/hausnummer';
 import { ProjectPrice } from './entity/project-price';
 import { config } from 'dotenv';
 import { User } from './entity/user';
+import { RefreshToken } from './entity/refresh-token';
 
 
 const start = async () => {
@@ -29,7 +30,7 @@ const start = async () => {
       password: 'password',
       database: 'mieter',
       synchronize: true,
-      entities: [Address, Hausnummer, ProjectPrice, User]
+      entities: [Address, Hausnummer, ProjectPrice, User, RefreshToken]
     });
     console.log('Connected to Database');
     

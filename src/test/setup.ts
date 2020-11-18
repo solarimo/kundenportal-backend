@@ -4,8 +4,9 @@ import { Hausnummer } from "../entity/hausnummer";
 import { ProjectPrice } from "../entity/project-price";
 import { User } from "../entity/user";
 import { config } from 'dotenv';
+import { RefreshToken } from "../entity/refresh-token";
 
-const entities = [Address, Hausnummer, ProjectPrice, User];
+const entities = [Address, Hausnummer, ProjectPrice, User, RefreshToken];
 
 
 beforeAll(async () => {
