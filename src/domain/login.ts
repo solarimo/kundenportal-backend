@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer";
-import { IsDefined, IsEmail, IsString } from "class-validator";
+import { IsDefined, IsEmail, IsString, IsUUID } from "class-validator";
 
 export class LoginCredentialsDto {
 
@@ -13,4 +13,11 @@ export class LoginCredentialsDto {
   password: string;
 
 
+}
+
+export class RefreshTokenDto {
+
+  @Expose()
+  @IsUUID()
+  refreshToken: string;
 }

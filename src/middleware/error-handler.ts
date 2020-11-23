@@ -10,16 +10,17 @@ export const errorHandler = (
   if (err instanceof CustomError) {
     return res.status(err.statusCode).send({ errors: err.serializeErrors() });
   } 
-  if(err instanceof SyntaxError) {
+  else if(err instanceof SyntaxError) {
     return res.status(400).send({
       errors: [{ message: 'Error in parsing Json' }]
     })
   }
 
+
   console.log(err);
   
 
-  res.status(400).send({
+  res.status(500).send({
     errors: [{ message: 'Something went wrong' }]
   });
 };

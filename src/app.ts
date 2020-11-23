@@ -9,6 +9,9 @@ import { calculateRouter } from './routes/calculate';
 import { helloRouter } from './routes/hello';
 import { ibanCheckRouter } from './routes/iban-check';
 import { signupRouter } from './routes/signup';
+import { signinRouter } from './routes/signin';
+import { signoutRouter } from './routes/signout';
+import { refreshTokenRouter } from './routes/refresh-token';
 
 
 const app = express();
@@ -24,6 +27,9 @@ app.use(calculateRouter);
 app.use(helloRouter);
 app.use(ibanCheckRouter);
 app.use(signupRouter);
+app.use(signinRouter);
+app.use(signoutRouter);
+app.use(refreshTokenRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();

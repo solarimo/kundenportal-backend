@@ -24,8 +24,8 @@ beforeAll(async () => {
     synchronize: true,
     dropSchema: true
   }).catch(e => console.log(e)
-  )  
-
+  );
+  
   await initDb();
 });
 
