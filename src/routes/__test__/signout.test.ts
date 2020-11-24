@@ -8,7 +8,7 @@ import { getUserDto } from './utils';
 it('should signup and successfully logout', async () => {
 
   const { body: signupBody } = await request(app)
-    .post(`${API_PREFIX}/signup`)
+    .post(`${API_PREFIX}/register/signup`)
     .send(getUserDto({ email: 'discard@test.com' }))
     .expect(201);
 

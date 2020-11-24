@@ -6,6 +6,7 @@ import { ProjectPrice } from './entity/project-price';
 import { config } from 'dotenv';
 import { User } from './entity/user';
 import { RefreshToken } from './entity/refresh-token';
+import { initDb } from './bootstrap/bootstrap';
 
 
 const start = async () => {
@@ -29,10 +30,12 @@ const start = async () => {
       username: 'root',
       password: 'password',
       database: 'mieter',
+      dropSchema: true,
       synchronize: true,
       entities: [Address, Hausnummer, ProjectPrice, User, RefreshToken]
     });
     console.log('Connected to Database');
+    await initDb();
     
     
   } catch (error) {

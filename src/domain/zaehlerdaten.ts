@@ -1,9 +1,14 @@
 import { Expose, Type } from "class-transformer";
-import { Equals, IsBoolean, IsDate, IsDefined, IsString } from "class-validator";
+import { Equals, IsDate, IsDefined, IsEnum, IsString } from "class-validator";
 
 export abstract class ZaehlerDaten {
   abstract type: 'NEUEINZUG' | 'ANBIETERWECHSEL';
   abstract zaehlernummer: string;
+}
+
+export enum Kuendigung {
+  BEREITS_GEKUENDIGT = 'BEREITS_GEKUENDIGT',
+  KUENDIGUNG_UEBERNEHMEN = 'KUENDIGUNG_UEBERNEHMEN'
 }
 
 export class Anbieterwechsel extends ZaehlerDaten {
@@ -24,8 +29,8 @@ export class Anbieterwechsel extends ZaehlerDaten {
 
   @Expose()
   @IsDefined()
-  @IsBoolean()
-  bereitsGekuendigt: boolean;
+  @IsEnum(Kuendigung)
+  bereitsGekuendigt: Kuendigung;
 
   @Expose()
   @IsDate()

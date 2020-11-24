@@ -5,6 +5,7 @@ import { ProjectPrice } from "../entity/project-price";
 import { User } from "../entity/user";
 import { config } from 'dotenv';
 import { RefreshToken } from "../entity/refresh-token";
+import { initDb } from "../bootstrap/bootstrap";
 
 const entities = [Address, Hausnummer, ProjectPrice, User, RefreshToken];
 
@@ -34,34 +35,6 @@ beforeEach(() => {
   jest.restoreAllMocks();
 });
 
-
-const initDb = async () => {
-
-  const hausnummer = new Hausnummer();
-  hausnummer.nummer = '15A';
-  await getRepository(Hausnummer).save(hausnummer);
-
-  const hausnummer2 = new Hausnummer();
-  hausnummer2.nummer = '11';
-  await getRepository(Hausnummer).save(hausnummer2);
-
-  const projectPrice = new ProjectPrice();
-  projectPrice.grundpreis = 120.34;
-  projectPrice.arbeitspreis = 29.88;
-  projectPrice.grundpreisGv = 130.23;
-  projectPrice.arbeitspreisGv = 31.78;
-  await getRepository(ProjectPrice).save(projectPrice);
-
-  const addr = new Address();
-  addr.strasse = 'Musterstraße';
-  addr.postleitzahl = '12345';
-  addr.stadt = 'Musterstadt';
-  addr.hausnummern = [hausnummer, hausnummer2];
-  addr.projectPrice = projectPrice;
-
-  await getRepository(Address).save(addr);
-
-}
 
 afterAll(async () => {
   await getConnection().close();

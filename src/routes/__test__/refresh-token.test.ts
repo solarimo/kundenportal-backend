@@ -10,7 +10,7 @@ let refreshToken: string;
 beforeAll( async () => {
   //create new user
   const { body } = await request(app)
-  .post(`${API_PREFIX}/signup`)
+  .post(`${API_PREFIX}/register/signup`)
   .send(getUserDto({ email: 'refresh@test.com' }))
   .expect(201);
 

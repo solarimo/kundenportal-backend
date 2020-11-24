@@ -13,7 +13,7 @@ describe('signup validation related tests', () => {
   it('will create new User and return access and refresh token', async () => {
 
     const { body } = await request(app)
-      .post(`${API_PREFIX}/signup`)
+      .post(`${API_PREFIX}/register/signup`)
       .send(getUserDto())
       .expect(201);
 
@@ -23,7 +23,7 @@ describe('signup validation related tests', () => {
   
   it('will not accept invalid Zaehlerdaten', async () => {
     await request(app)
-      .post(`${API_PREFIX}/signup`)
+      .post(`${API_PREFIX}/register/signup`)
       .send(getUserDto({ zaehlerdaten: {} }))
       .expect(400)
   
@@ -31,7 +31,7 @@ describe('signup validation related tests', () => {
   
   it('will not accept invalid Zaehlerdaten', async () => {
     await request(app)
-      .post(`${API_PREFIX}/signup`)
+      .post(`${API_PREFIX}/register/signup`)
       .send(getUserDto({ zaehlerdaten: getZaehlerdaten({ type: 'INVALID_TYPE' }) }))
       .expect(400)
   
@@ -39,7 +39,7 @@ describe('signup validation related tests', () => {
   
   it('will not accept password with less than 4 chars', async () => {
     await request(app)
-      .post(`${API_PREFIX}/signup`)
+      .post(`${API_PREFIX}/register/signup`)
       .send(getUserDto({ password: 'jdd' }))
       .expect(400)
   
@@ -47,7 +47,7 @@ describe('signup validation related tests', () => {
   
   it('will not accept invalid birthdate format', async () => {
     await request(app)
-      .post(`${API_PREFIX}/signup`)
+      .post(`${API_PREFIX}/register/signup`)
       .send(getUserDto({ geburtsdatum: '12/23/1980' }))
       .expect(400)
   
@@ -55,7 +55,7 @@ describe('signup validation related tests', () => {
   
   it('will not accept invalid email', async () => {
     await request(app)
-      .post(`${API_PREFIX}/signup`)
+      .post(`${API_PREFIX}/register/signup`)
       .send(getUserDto({ email: 'pete.fake.com' }))
       .expect(400)
   
@@ -63,7 +63,7 @@ describe('signup validation related tests', () => {
   
   it('will not accept invalid Anrede', async () => {
     await request(app)
-      .post(`${API_PREFIX}/signup`)
+      .post(`${API_PREFIX}/register/signup`)
       .send(getUserDto({ anrede: 'MR' }))
       .expect(400)
   
@@ -71,7 +71,7 @@ describe('signup validation related tests', () => {
   
   it('will not accept zaehlerdaten with invalid properties', async () => {
     await request(app)
-      .post(`${API_PREFIX}/signup`)
+      .post(`${API_PREFIX}/register/signup`)
       .send(getUserDto({ zaehlerdaten: getZaehlerdaten({ bereitsGekuendigt: 'not valid' }) }))
       .expect(400)
   
@@ -79,7 +79,7 @@ describe('signup validation related tests', () => {
   
   it('will not accept zaehlerdaten with missing properties', async () => {
     await request(app)
-      .post(`${API_PREFIX}/signup`)
+      .post(`${API_PREFIX}/register/signup`)
       .send(getUserDto({ zaehlerdaten: { type: 'NEUEINZUG', zaehlernummer: 'sdfhjsdfhsjkdfhsdkj' } }))
       .expect(400)
   
@@ -103,7 +103,7 @@ describe('mocked implementation of db', () => {
     });
 
     const { body } = await request(app)
-    .post(`${API_PREFIX}/signup`)
+    .post(`${API_PREFIX}/register/signup`)
     .send(getUserDto())
     .expect(500);
 

@@ -13,7 +13,7 @@ import { hashPassword } from '../services/hash';
 const router = Router();
 
 router.post(
-  `${API_PREFIX}/signup`,
+  `${API_PREFIX}/register/signup`,
   validateRequest<UserDto>(UserDto),
   async (req: Request, res: Response) => {
   const userDto: UserDto = res.locals.input;
