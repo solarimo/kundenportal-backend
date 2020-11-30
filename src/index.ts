@@ -16,10 +16,6 @@ const start = async () => {
     throw new Error('ACCESS_TOKEN_SECRET must be defined');
   }
 
-  if(!process.env.REFRESH_TOKEN_SECRET) {
-    throw new Error('REFRESH_TOKEN_SECRET must be defined')
-  }
-
   try {
 
     //connect to mysql
